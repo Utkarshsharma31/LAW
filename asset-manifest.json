@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/LAW/static/css/main.c74555d0.chunk.css",
-    "main.js": "/LAW/static/js/main.9db9d843.chunk.js",
-    "main.js.map": "/LAW/static/js/main.9db9d843.chunk.js.map",
+    "main.js": "/LAW/static/js/main.56e24118.chunk.js",
+    "main.js.map": "/LAW/static/js/main.56e24118.chunk.js.map",
     "runtime-main.js": "/LAW/static/js/runtime-main.5ae57dc6.js",
     "runtime-main.js.map": "/LAW/static/js/runtime-main.5ae57dc6.js.map",
     "static/css/2.ecf02f90.chunk.css": "/LAW/static/css/2.ecf02f90.chunk.css",
@@ -90,6 +90,6 @@
     "static/css/2.ecf02f90.chunk.css",
     "static/js/2.834c99df.chunk.js",
     "static/css/main.c74555d0.chunk.css",
-    "static/js/main.9db9d843.chunk.js"
+    "static/js/main.56e24118.chunk.js"
   ]
 }
