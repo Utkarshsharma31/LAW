@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/LAW/static/css/main.c74555d0.chunk.css",
-    "main.js": "/LAW/static/js/main.6af73ea3.chunk.js",
-    "main.js.map": "/LAW/static/js/main.6af73ea3.chunk.js.map",
+    "main.js": "/LAW/static/js/main.7dc13b78.chunk.js",
+    "main.js.map": "/LAW/static/js/main.7dc13b78.chunk.js.map",
     "runtime-main.js": "/LAW/static/js/runtime-main.5ae57dc6.js",
     "runtime-main.js.map": "/LAW/static/js/runtime-main.5ae57dc6.js.map",
     "static/css/2.ecf02f90.chunk.css": "/LAW/static/css/2.ecf02f90.chunk.css",
-    "static/js/2.262ac82a.chunk.js": "/LAW/static/js/2.262ac82a.chunk.js",
-    "static/js/2.262ac82a.chunk.js.map": "/LAW/static/js/2.262ac82a.chunk.js.map",
+    "static/js/2.834c99df.chunk.js": "/LAW/static/js/2.834c99df.chunk.js",
+    "static/js/2.834c99df.chunk.js.map": "/LAW/static/js/2.834c99df.chunk.js.map",
     "index.html": "/LAW/index.html",
     "static/css/2.ecf02f90.chunk.css.map": "/LAW/static/css/2.ecf02f90.chunk.css.map",
     "static/css/main.c74555d0.chunk.css.map": "/LAW/static/css/main.c74555d0.chunk.css.map",
-    "static/js/2.262ac82a.chunk.js.LICENSE.txt": "/LAW/static/js/2.262ac82a.chunk.js.LICENSE.txt",
+    "static/js/2.834c99df.chunk.js.LICENSE.txt": "/LAW/static/js/2.834c99df.chunk.js.LICENSE.txt",
     "static/media/AboutUsPage.c9232ae2.jpeg": "/LAW/static/media/AboutUsPage.c9232ae2.jpeg",
     "static/media/BlogIndexPage.0f03fbdc.jpeg": "/LAW/static/media/BlogIndexPage.0f03fbdc.jpeg",
     "static/media/ContactUsPage.27145629.jpeg": "/LAW/static/media/ContactUsPage.27145629.jpeg",
@@ -88,8 +88,8 @@
   "entrypoints": [
     "static/js/runtime-main.5ae57dc6.js",
     "static/css/2.ecf02f90.chunk.css",
-    "static/js/2.262ac82a.chunk.js",
+    "static/js/2.834c99df.chunk.js",
     "static/css/main.c74555d0.chunk.css",
-    "static/js/main.6af73ea3.chunk.js"
+    "static/js/main.7dc13b78.chunk.js"
   ]
 }
