@@ -17,7 +17,6 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 /* Use AnimationRevealPage as a wrapper component for your pages if you are building a custom one yourself */
 
-
 /*
  * Hero section is the top most section on the page. It contains the header as well.
  * So you dont need to import headers
@@ -47,7 +46,6 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import Pricing from "components/pricing/ThreePlans.js";
 // import Pricing from "components/pricing/ThreePlansWithHalfPrimaryBackground.js";
 // import Pricing from "components/pricing/TwoPlansWithDurationSwitcher.js";
-
 
 // import Blog from "components/blogs/ThreeColSimpleWithImage.js";
 // import Blog from "components/blogs/ThreeColSimpleWithImageAndDashedBorder.js";
@@ -81,12 +79,11 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 /* Ready Made Pages (from demos folder) */
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 
-
 /* Inner Pages */
 import Profile from "pages/Profile";
 import Resetpassword from "pages/ResetPassword";
 import LoginPage from "pages/Login.js";
-import SignupPage from "pages/Signup.js";
+// import Signup from "pages/Signup.js";
 import Auser from "pages/AttUser.js";
 import AboutUsPage from "pages/AboutUs.js";
 import ContactUsPage from "pages/ContactUs.js";
@@ -97,21 +94,20 @@ import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 import ComponentRenderer from "ComponentRenderer.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Signup from "pages/Signup.js";
 
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
   // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
 
-
   return (
     <Router>
       <Switch>
         <Route path="/components/:type/:subtype/:name">
-         <ComponentRenderer />
+          <ComponentRenderer />
         </Route>
         <Route path="/components/:type/:name">
           <ComponentRenderer />
-          
         </Route>
         <Route path="/TermsOfServicePage">
           <TermsOfServicePage />
@@ -120,13 +116,13 @@ export default function App() {
           <LoginPage />
         </Route>
         <Route path="/SignupPage">
-          <SignupPage />
+          <Signup />
         </Route>
         <Route path="/AboutUsPage">
-        <AboutUsPage />
+          <AboutUsPage />
         </Route>
         <Route path="/Auser">
-        <Auser />
+          <Auser />
         </Route>
         <Route path="/PrivacyPolicyPage">
           <PrivacyPolicyPage />
@@ -138,15 +134,14 @@ export default function App() {
           <BlogIndexPage />
         </Route>
         <Route path="/Resetpassword">
-        <Resetpassword />
+          <Resetpassword />
         </Route>
         <Route path="/Profile">
-        <Profile />
+          <Profile />
         </Route>
         <Route path="/">
           <SaaSProductLandingPage />
         </Route>
-
       </Switch>
     </Router>
   );
@@ -168,4 +163,3 @@ export default function App() {
 // export default BlogIndexPage;
 // export default TermsOfServicePage;
 // export default PrivacyPolicyPage;
-
