@@ -1,25 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import AnimationRevealPage from "helpers/AnimationRevealPage.js"
-
-// import EventLandingPage from "demos/EventLandingPage.js";
-// import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
-// import AgencyLandingPage from "demos/AgencyLandingPage.js";
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
-// import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
 import ServiceLandingPage from "demos/ServiceLandingPage.js";
-// import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
-
-// import EventLandingPageImageSrc from "images/demo/EventLandingPage.jpeg";
-// import HotelTravelLandingPageImageSrc from "images/demo/HotelTravelLandingPage.jpeg";
-// import AgencyLandingPageImageSrc from "images/demo/AgencyLandingPage.jpeg";
 import SaaSProductLandingPageImageSrc from "images/demo/SaaSProductLandingPage.jpeg";
-// import RestaurantLandingPageImageSrc from "images/demo/RestaurantLandingPage.jpeg";
 import ServiceLandingPageImageSrc from "images/demo/ServiceLandingPage.jpeg";
-// import HostingCloudLandingPageImageSrc from "images/demo/HostingCloudLandingPage.jpeg";
 import resetpassword from "pages/ResetPassword";
 import Auser from "pages/AttUser.js";
 import LoginPage from "pages/Login.js";
+import Dashboard from "pages/Dashboard.js";
+import vendorDashboard from "pages/VendorDashboard.js";
 import profile from "pages/Profile.js";
 import SignupPage from "pages/Signup.js";
 import PricingPage from "pages/Pricing.js";
@@ -174,6 +164,14 @@ export const components = {
     profile: {
       component: profile,
       url: `/components/pages/profile`,
+    },
+    Dashboard: {
+      component: Dashboard,
+      url: `/components/pages/Dashboard`,
+    },
+    VendorDashboard: {
+      component: Dashboard,
+      url: `/components/pages/VendorDashboard`,
     },
     ContactUsPage: {
       component: ContactUsPage,
