@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -9,8 +9,12 @@ import logo from "images/logo-removebg-preview.png";
 import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
-
-const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
+import axios from "axios";
+import { BACKEND } from "../Config/Service/Constants";
+import LoaderTail from "components/features/Loader";
+const Container = tw(
+  ContainerBase
+)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
 const MainContainer = tw.div`lg:w-1/2 xl:w-6/12 p-6 sm:p-12`;
 const LogoLink = tw.a``;
@@ -40,7 +44,7 @@ const Form = tw.form`mx-auto max-w-xs`;
 const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const Select = tw.select`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const Option = styled.option`
-color:#6B7280;
+  color: #6b7280;
 `;
 
 const SubmitButton = styled.button`
@@ -53,16 +57,15 @@ const SubmitButton = styled.button`
   }
 `;
 const Radioinput = styled.input`
-margin-right: 0.5rem;
-    margin-top: 1rem;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
 `;
 const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
 const IllustrationImage = styled.div`
-  ${props => `background-image: url("${props.imageSrc}");`}
+  ${(props) => `background-image: url("${props.imageSrc}");`}
   ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
 `;
-
-export default ({
+const Signup = (
   logoLinkUrl = "#",
   illustrationImageSrc = illustration,
   headingText = "Sign Up For Court Law",
@@ -70,31 +73,71 @@ export default ({
     {
       iconImageSrc: googleIconImageSrc,
       text: "Sign Up With Google",
-      url: "https://google.com"
+      url: "https://google.com",
     },
     {
       iconImageSrc: twitterIconImageSrc,
       text: "Sign Up With Twitter",
-      url: "https://twitter.com"
-    }
+      url: "https://twitter.com",
+    },
   ],
   submitButtonText = "Sign Up",
   SubmitButtonIcon = SignUpIcon,
   tosUrl = "/TermsOfServicePage",
   privacyPolicyUrl = "/PrivacyPolicyPage",
   signInUrl = "/LoginPage"
-}) => (
-  <AnimationRevealPage>
-    <Container>
-      <Content>
-        <MainContainer>
-          <LogoLink href={logoLinkUrl}>
-            <LogoImage src={logo} />
-          </LogoLink>
-          <MainContent>
-            <Heading>{headingText}</Heading>
-            <FormContainer>
-              {/* <SocialButtonsContainer>
+) => {
+  const [formData, setformData] = useState({});
+  const [showLoader, setShowLoader] = useState(false);
+  // useEffect(() => {
+  //   alert("alert");
+  // }, []);
+
+  const handleChange = (e) => {
+    // alert("ik");
+    const { name, value } = e.target;
+    setformData({ ...formData, [name]: value });
+    console.log(name, value);
+  };
+
+  const submitIt = async () => {
+    // console.log(formData);
+    if (formData.terms) {
+      setShowLoader(true);
+      try {
+        alert("sending it");
+        const data = await axios.post(`${BACKEND}/signup`, formData);
+        alert("sent");
+        console.log(data);
+        // if
+        alert(data.data.msg);
+        if (data.data.success) {
+          setShowLoader(false);
+          window.location.reload(true);
+        }
+        setShowLoader(false);
+      } catch (e) {
+        setShowLoader(false);
+        console.log(e);
+      }
+    } else {
+      alert("You must be agree with Terms & Conditions");
+    }
+  };
+
+  return (
+    <AnimationRevealPage>
+      <Container>
+        <Content>
+          <MainContainer>
+            {/* <LogoLink href={logoLinkUrl}> */}
+            <LogoLink>
+              <LogoImage src={logo} />
+            </LogoLink>
+            <MainContent>
+              <Heading>{headingText}</Heading>
+              <FormContainer>
+                {/* <SocialButtonsContainer>
                 {socialButtons.map((socialButton, index) => (
                   <SocialButton key={index} href={socialButton.url}>
                     <span className="iconContainer">
@@ -107,52 +150,123 @@ export default ({
               <DividerTextContainer>
                 <DividerText>Or Sign up with your e-mail</DividerText>
               </DividerTextContainer> */}
-              <Form>
-                <Input required type="text" placeholder="First Name" />
-                <Input required type="text" placeholder="Last Name" />
-                <Input  type="text" placeholder="Company Name" />
-                <Input required type="text" placeholder="username" />
-                <Input required type="email" placeholder="Email" />
-                <Select style={{color : "#9CA3AF"}} >
-                <Option value="A">Select Category</Option>
-                  <Option value="A">Attorney</Option>
-                  <Option value="B">Vendor</Option>
-                  <Option value="C">Consumer</Option>
-                </Select>
-                <Input required type="password" placeholder="Password" />
-                
-                <p tw="mt-6 text-xs text-gray-600 text-center">
-                <Radioinput required type="radio"  />
-                  I agree to abide by court law's{" "}
-                  <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
-                    Terms of Service
-                  </a>{" "}
-                  and its{" "}
-                  <a href={privacyPolicyUrl} tw="border-b border-gray-500 border-dotted">
-                    Privacy Policy
-                  </a>
-                </p>
+                <Form>
+                  <Input
+                    onChange={(e) => handleChange(e)}
+                    name="firstName"
+                    value={formData.firstName}
+                    required
+                    type="text"
+                    placeholder="First Name"
+                  />
+                  <Input
+                    required
+                    onChange={(e) => handleChange(e)}
+                    name="lastName"
+                    value={formData.lastName}
+                    type="text"
+                    placeholder="Last Name"
+                  />
+                  <Input
+                    type="text"
+                    onChange={(e) => handleChange(e)}
+                    name="companyName"
+                    value={formData.companyName}
+                    placeholder="Company Name"
+                  />
+                  <Input
+                    required
+                    type="text"
+                    onChange={(e) => handleChange(e)}
+                    name="userName"
+                    value={formData.userName}
+                    placeholder="username"
+                  />
+                  <Input
+                    onChange={(e) => handleChange(e)}
+                    name="email"
+                    value={formData.email}
+                    required
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <Select
+                    onChange={(e) => handleChange(e)}
+                    name="category"
+                    style={{ color: "#9CA3AF" }}
+                  >
+                    <Option value="null">Select Category</Option>
+                    <Option value="Attorney">Attorney</Option>
+                    <Option value="Vendor">Vendor</Option>
+                    <Option value="Consumer">Consumer</Option>
+                  </Select>
+                  <Input
+                    onChange={(e) => handleChange(e)}
+                    name="password"
+                    value={formData.password}
+                    required
+                    type="password"
+                    placeholder="Password"
+                  />
 
-                <SubmitButton type="submit">
-                  <SubmitButtonIcon className="icon" />
-                  <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
+                  <p tw="mt-6 text-xs text-gray-600 text-center">
+                    <Radioinput
+                      required
+                      type="radio"
+                      name="terms"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    I agree to abide by court law's{" "}
+                    <a
+                      href={tosUrl}
+                      tw="border-b border-gray-500 border-dotted"
+                    >
+                      Terms of Service
+                    </a>{" "}
+                    and its{" "}
+                    <a
+                      href={privacyPolicyUrl}
+                      tw="border-b border-gray-500 border-dotted"
+                    >
+                      Privacy Policyd
+                    </a>
+                  </p>
+
+                  {/* <SubmitButton type="submit" onClick={submitIt}> */}
+                  <div style={{ display: showLoader ? "none" : "block" }}>
+                    <SubmitButton onClick={submitIt}>
+                      <SubmitButtonIcon className="icon" />
+                      {/* <a
+                      // href={signInUrl}
+                      tw="border-b border-gray-500 border-dotted"
+                    > */}
                       {submitButtonText}
-                      </a>
-                </SubmitButton>
-                <p tw="mt-8 text-sm text-gray-600 text-center">
-                  Already have an account?{" "}
-                  <a href={signInUrl} tw="border-b border-gray-500 border-dotted">
-                    Login
-                  </a>
-                </p>
-              </Form>
-            </FormContainer>
-          </MainContent>
-        </MainContainer>
-        <IllustrationContainer>
-                  <IllustrationImage imageSrc={illustrationImageSrc} />
-        </IllustrationContainer>
-      </Content>
-    </Container>
-  </AnimationRevealPage>
-);
+                      {/* </a> */}
+                    </SubmitButton>
+                  </div>
+                  <LoaderTail showLoader={showLoader} />
+                  <button type="button" onClick={submitIt}>
+                    Submit
+                  </button>
+                  <p tw="mt-8 text-sm text-gray-600 text-center">
+                    Already have an account?{" "}
+                    <a
+                      href={signInUrl}
+                      tw="border-b border-gray-500 border-dotted"
+                    >
+                      Login
+                    </a>
+                  </p>
+                </Form>
+              </FormContainer>
+            </MainContent>
+          </MainContainer>
+          <IllustrationContainer>
+            <IllustrationImage imageSrc={illustrationImageSrc} />
+          </IllustrationContainer>
+        </Content>
+      </Container>
+    </AnimationRevealPage>
+  );
+};
+export default Signup;

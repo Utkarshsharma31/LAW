@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as StarIcon } from "images/star-icon.svg";
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-5.svg";
 import { ReactComponent as SvgDecoratorBlob2 } from "images/svg-decorator-blob-7.svg";
+import { getAllUser } from "Config/Service/Users";
 
 const HeaderRow = tw.div`flex justify-between items-center flex-col xl:flex-row`;
 const Header = tw(SectionHeadingHire)``;
@@ -71,24 +72,24 @@ const FilterHead = styled.div`
   width: 22rem;
   margin: 17px 13px 6px 0px;
   position: static;
-  border: 1px solid #e9e9ed; 
+  border: 1px solid #e9e9ed;
 `;
 const FilterHeading = styled.div`
-padding-top: 12px;
-    padding-bottom: 9px;
-    padding-left: 20px;
-    border: 1px solid #e9e9ed;
-    position: relative;
-    `;
+  padding-top: 12px;
+  padding-bottom: 9px;
+  padding-left: 20px;
+  border: 1px solid #e9e9ed;
+  position: relative;
+`;
 
-  const FilterSpan = styled.span`
-    font-weight: 900;
-    text-transform: uppercase;
-    font-size: 16px;
-    margin: 0 0 18px;
-    clear: both;
-    color: #282c3f;
-    display: block;
+const FilterSpan = styled.span`
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin: 0 0 18px;
+  clear: both;
+  color: #282c3f;
+  display: block;
 `;
 
 export default ({
@@ -233,78 +234,281 @@ export default ({
     console.log(tabs);
   }
   const [activeTab, setActiveTab] = useState(tabsKeys[0]);
+  const [userData, setUserData] = useState([]);
+  useEffect(() => {
+    getAllUser("Attorney", (response) => {
+      console.log(response, "<<<<");
+      setUserData(response.user);
+    });
+  }, []);
 
   return (
     <ContainerHire>
       <FilterHead>
-      <FilterHeading>
-        <FilterSpan>Filters</FilterSpan>
+        <FilterHeading>
+          <FilterSpan>Filters</FilterSpan>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 16px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 16px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
         <FilterHeading>
-        <FilterSpan>Categories</FilterSpan>
-        <ul>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Domestic</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Crinimal</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Immigration</li>
-          <li><input style={{margin: "0 12px 0 0"}} type="checkbox" value="Tshirts" />Family</li>
-        </ul>
+          <FilterSpan>Categories</FilterSpan>
+          <ul>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Domestic
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Crinimal
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Immigration
+            </li>
+            <li>
+              <input
+                style={{ margin: "0 12px 0 0" }}
+                type="checkbox"
+                value="Tshirts"
+              />
+              Family
+            </li>
+          </ul>
         </FilterHeading>
-        </FilterHead>
-      
+      </FilterHead>
+
       <ContentWithPaddingHire>
         <HeaderRow>
           <Header>{heading}</Header>
@@ -338,6 +542,7 @@ export default ({
             animate={activeTab === tabKey ? "current" : "hidden"}
           >
             {tabs[tabKey].map((card, index) => (
+            
               <CardContainer key={index}>
                 <Card
                   className="group"

@@ -1,17 +1,29 @@
 /* Below animations are fore modal created using React-Modal */
 .ReactModal__Overlay {
-    transition: transform 300ms ease-in-out;
-    transition-delay: 100ms;
-    transform: scale(0);
-    /* transform: translateY(-150%); */
+  transition: transform 300ms ease-in-out;
+  transition-delay: 100ms;
+  transform: scale(0);
+  /* transform: translateY(-150%); */
 }
 
-.ReactModal__Overlay--after-open{
-    transform: scale(1);
-    /* transform: translateY(0%); */
+.ReactModal__Overlay--after-open {
+  transform: scale(1);
+  /* transform: translateY(0%); */
 }
 
-.ReactModal__Overlay--before-close{
-    transform: scale(0);
-    /* transform: translateY(-150%); */
+.ReactModal__Overlay--before-close {
+  transform: scale(0);
+  /* transform: translateY(-150%); */
+}
+
+.glassbody {
+  background-image: linear-gradient();
+  background-position: center;
+}
+.glassMor {
+  backdrop-filter: blur(6px) saturate(146%);
+  -webkit-backdrop-filter: blur(6px) saturate(146%);
+  background-color: rgba(17, 25, 40, 0.61);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
 }
