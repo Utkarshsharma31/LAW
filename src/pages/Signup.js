@@ -11,6 +11,7 @@ import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import axios from "axios";
 import { BACKEND } from "../Config/Service/Constants";
+import LoaderTail from "components/features/Loader";
 const Container = tw(
   ContainerBase
 )`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
@@ -87,6 +88,7 @@ const Signup = (
   signInUrl = "/LoginPage"
 ) => {
   const [formData, setformData] = useState({});
+  const [showLoader, setShowLoader] = useState(false);
   // useEffect(() => {
   //   alert("alert");
   // }, []);
@@ -100,29 +102,29 @@ const Signup = (
 
   const submitIt = async () => {
     // console.log(formData);
-    try {
-      alert("sending it");
-      const data = await axios.post(`${BACKEND}/signup`, formData);
-      alert("sent");
-      console.log(data);
-    } catch (e) {
-      console.log(e);
+    if (formData.terms) {
+      setShowLoader(true);
+      try {
+        alert("sending it");
+        const data = await axios.post(`${BACKEND}/signup`, formData);
+        alert("sent");
+        console.log(data);
+        // if
+        alert(data.data.msg);
+        if (data.data.success) {
+          setShowLoader(false);
+          window.location.reload(true);
+        }
+        setShowLoader(false);
+      } catch (e) {
+        setShowLoader(false);
+        console.log(e);
+      }
+    } else {
+      alert("You must be agree with Terms & Conditions");
     }
   };
-  // const submitIt = async () => {
-  //   try {
-  //     axios
-  //       .post(`${BACKEND}/signup`, { formData })
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+
   return (
     <AnimationRevealPage>
       <Container>
@@ -208,8 +210,13 @@ const Signup = (
                   />
 
                   <p tw="mt-6 text-xs text-gray-600 text-center">
-                    <Radioinput required type="radio" />I agree to abide by
-                    court law's{" "}
+                    <Radioinput
+                      required
+                      type="radio"
+                      name="terms"
+                      onChange={(e) => handleChange(e)}
+                    />
+                    I agree to abide by court law's{" "}
                     <a
                       href={tosUrl}
                       tw="border-b border-gray-500 border-dotted"
@@ -226,15 +233,18 @@ const Signup = (
                   </p>
 
                   {/* <SubmitButton type="submit" onClick={submitIt}> */}
-                  <SubmitButton onClick={submitIt}>
-                    <SubmitButtonIcon className="icon" />
-                    {/* <a
+                  <div style={{ display: showLoader ? "none" : "block" }}>
+                    <SubmitButton onClick={submitIt}>
+                      <SubmitButtonIcon className="icon" />
+                      {/* <a
                       // href={signInUrl}
                       tw="border-b border-gray-500 border-dotted"
                     > */}
-                    {submitButtonText}
-                    {/* </a> */}
-                  </SubmitButton>
+                      {submitButtonText}
+                      {/* </a> */}
+                    </SubmitButton>
+                  </div>
+                  <LoaderTail showLoader={showLoader} />
                   <button type="button" onClick={submitIt}>
                     Submit
                   </button>

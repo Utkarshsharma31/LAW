@@ -10,3 +10,5 @@
 // export default ACTION
 
 export const SAVE_USER_DETAIL = "SAVE_USER_DETAIL";
+export const IS_USER_LOGGED_IN="IS_USER_LOGGED_IN";
+export const ROLE_OF_USER="ROLE_OF_USER"

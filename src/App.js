@@ -80,7 +80,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 
 /* Inner Pages */
-import Profile from "pages/Profile";
+// import Profile from "./pages/Profile";
 import Resetpassword from "pages/ResetPassword";
 import LoginPage from "pages/Login.js";
 // import Signup from "pages/Signup.js";
@@ -95,6 +95,8 @@ import ComponentRenderer from "ComponentRenderer.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "pages/Signup.js";
+import Profile from "pages/Profile";
+import Profilepage from "pages/Profilepage";
 
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
@@ -112,6 +114,10 @@ export default function App() {
         <Route path="/TermsOfServicePage">
           <TermsOfServicePage />
         </Route>
+        <Route path="/profilepage">
+          <Profilepage />
+        </Route>
+        
         <Route path="/LoginPage">
           <LoginPage />
         </Route>

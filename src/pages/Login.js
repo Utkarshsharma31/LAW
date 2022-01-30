@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/law_first-removebg-preview.png";
 import logo from "images/logo-removebg-preview.png";
 import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 // import TabGridCards from "components/cards/TabCardGrid.js";
+import "../styles/loader.css";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import { GoogleAuthProvider } from "Config/Authmethod";
 import socialAuth from "Config/Service/Authentication";
 // import Auser from "pages/AttUser";
 import axios from "axios";
-import { BACKEND } from "../Config/Service/Constants";
+import { BACKEND, TOKEN_STORE } from "../Config/Service/Constants";
 import { useDispatch } from "react-redux";
-import { SAVE_USER_DETAIL } from "Reducer/Action";
+import {
+  IS_USER_LOGGED_IN,
+  ROLE_OF_USER,
+  SAVE_USER_DETAIL,
+} from "Reducer/Action";
+import { match_token } from "Config/Service/Self_Auth";
+import LoaderTail from "components/features/Loader";
 
 const Container = tw(
   ContainerBase
@@ -28,7 +36,6 @@ const LogoImage = tw.img`h-12 mx-auto`;
 const MainContent = tw.div`mt-12 flex flex-col items-center`;
 const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
 const FormContainer = tw.div`w-full flex-1 mt-8`;
-
 const SocialButtonsContainer = tw.div`flex flex-col items-center`;
 const SocialButton = styled.a`
   ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
@@ -91,6 +98,7 @@ const LoginPage = (
   profile = "/Profile"
 ) => {
   const [formData, setFormData] = useState({ email: null, password: null });
+  const [showLoader, setShowLoader] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -99,19 +107,43 @@ const LoginPage = (
     setFormData({ ...formData, [name]: value });
     console.log(name, value);
   };
+  const history = useHistory();
+
+  useEffect(() => {
+    const getToken = localStorage.getItem(TOKEN_STORE);
+    match_token(getToken, (response) => {
+      const { success, user, role } = response;
+      if (success) {
+        dispatch({ type: IS_USER_LOGGED_IN, payload: true });
+        dispatch({ type: SAVE_USER_DETAIL, payload: user });
+        dispatch({ type: ROLE_OF_USER, payload: role });
+        history.push("/Auser");
+      }
+    });
+    // console.log(getToken, "<< Token");
+  }, []);
+
   const sendLogin = async () => {
     try {
-      console.log("sending");
+      // console.log("sending");
+      // alert("sending");
+      setShowLoader(true);
       const { data } = await axios.post(`${BACKEND}/login`, formData);
       console.log("sent");
       console.log(data, "<<<<login");
       if (data.success) {
-        alert(data.msg);
+        // alert(data.msg);
         dispatch({ type: SAVE_USER_DETAIL, payload: data.user });
-        localStorage.setItem("COURTLAW", data.token);
+        dispatch({ type: IS_USER_LOGGED_IN, payload: true });
+        dispatch({ type: ROLE_OF_USER, payload: data.user.category });
+        localStorage.setItem(TOKEN_STORE, data.token);
+        setShowLoader(false);
+        history.push("/Auser");
       } else {
+        setShowLoader(false);
         alert(data.msg);
       }
+      setShowLoader(false);
     } catch (e) {
       console.log(e);
     }
@@ -163,20 +195,15 @@ const LoginPage = (
                     value={formData.password}
                     onChange={(e) => handleChange(e)}
                   />
-                  <SubmitButton>
-                    <SubmitButtonIcon className="icon" />
-                    {/* <a href={profile}> */}
-                    <span className="text">{submitButtonText}</span>
-                    {/* </a> */}
-                  </SubmitButton>
-                  <button type="button" onClick={sendLogin}>
-                    Login
-                  </button>
-                  {/* <p tw="mt-6 text-xs text-gray-600 text-center">
-                <a href={auser} tw="border-b border-gray-500 border-dotted">
-                  Forgot Password ?
-                </a>
-              </p> */}
+                  <div style={{ display: showLoader ? "none" : "block" }}>
+                    <SubmitButton onClick={sendLogin}>
+                      <SubmitButtonIcon className="icon" />
+                      {/* <a href={profile}> */}
+                      <span className="text">{submitButtonText}</span>
+                      {/* </a> */}
+                    </SubmitButton>
+                  </div>
+                  <LoaderTail showLoader={showLoader} />
                 </Form>
                 <p tw="mt-6 text-xs text-gray-600 text-center">
                   <a
